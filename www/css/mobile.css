@@ -56,6 +56,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	vertical-align: baseline;
 }
 
+#header-center .edname {
+	margin: 3px 0 0 15px;
+}
+
 #usermenu {
 	padding: 0;
 }
