@@ -34,6 +34,10 @@
 	<meta name="robots" content="noindex,nofollow" />
 {% endif %}
 
+{% if globals.facebook_page_id %}
+	<meta property="fb:pages" content="{{ globals.facebook_page_id }}">
+{% endif %}
+
 {% if globals.tags %}
 	<meta name="keywords" content="{{ globals.tags }}" />
 {% endif %}
