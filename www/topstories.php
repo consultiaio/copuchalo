@@ -43,7 +43,7 @@ if (!empty($_GET['month']) && !empty($_GET['year']) && ($month = (int) $_GET['mo
 	}
 }
 
-syslog(LOG_INFO, "SQL: " . $sql);
+//syslog(LOG_INFO, "SQL: " . $sql);
 
 if (!($memcache_key
 		&& ($rows = memcache_mget($memcache_key.'rows'))
