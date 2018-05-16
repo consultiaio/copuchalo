@@ -338,6 +338,7 @@ $globals['captcha_first_login'] = false;
 
 
 // For Facebook authentication
+//$globals['facebook_api_version'] = 'vX.XX'
 //$globals['facebook_key'] = 'xxxxxxxx';
 //$globals['facebook_secret'] = 'xxxxxxxx';
 // For Facebook page
