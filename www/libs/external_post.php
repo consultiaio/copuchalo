@@ -127,8 +127,6 @@ function pubsub_post() {
 
 function facebook_post($auth, $link, $text = '') {
 
-	global $globals;
-
 	if (empty($auth['facebook_token']) || empty($auth['facebook_key']) || empty($auth['facebook_secret']) || empty($auth['facebook_page_id'])) {
 		syslog(LOG_NOTICE, "facebook_token, facebook_key, facebook_secret or facebook_page_id not defined");
 		return false;
@@ -140,7 +138,7 @@ function facebook_post($auth, $link, $text = '') {
 	$fb = new Facebook\Facebook([
 		'app_id' => $auth['facebook_key'],
 		'app_secret' => $auth['facebook_secret'],
-		'default_graph_version' => $globals['facebook_api_version'],
+		'default_graph_version' => $auth['facebook_api_version'],
 		'default_access_token' => $auth['facebook_token']
 	]);
 
