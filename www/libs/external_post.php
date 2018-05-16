@@ -127,6 +127,8 @@ function pubsub_post() {
 
 function facebook_post($auth, $link, $text = '') {
 
+	global $globals;
+
 	if (empty($auth['facebook_token']) || empty($auth['facebook_key']) || empty($auth['facebook_secret']) || empty($auth['facebook_page_id'])) {
 		syslog(LOG_NOTICE, "facebook_token, facebook_key, facebook_secret or facebook_page_id not defined");
 		return false;
@@ -138,21 +140,14 @@ function facebook_post($auth, $link, $text = '') {
 	$fb = new Facebook\Facebook([
 		'app_id' => $auth['facebook_key'],
 		'app_secret' => $auth['facebook_secret'],
-		'default_graph_version' => 'v2.5',
+		'default_graph_version' => $globals['facebook_api_version'],
 		'default_access_token' => $auth['facebook_token']
 	]);
-
-	if ($link->has_thumb() && !empty($link->media_url)) {
-		$thumb = $link->media_url;
-	} else {
-		$thumb = get_avatar_url($link->author, $link->avatar, 80);
-	}
 
 	$permalink = $link->get_permalink();
 
 	$data = [
 		'link' => $permalink,
-		'picture' => $thumb,
 	];
 
 	if($text != '') {
@@ -169,7 +164,8 @@ function facebook_post($auth, $link, $text = '') {
 		return false;
 	}
 
-	syslog(LOG_INFO, "Published to FB: $permalink with picture: $thumb");
+	syslog(LOG_INFO, "Published to FB: $permalink");
+
 	return true;
 }
 
