@@ -85,9 +85,9 @@ echo '</div></div>';
 /*** SIDEBAR ****/
 echo '<div id="sidebar" class="col-sm-3">';
 do_banner_right();
+do_last_subs('published', 5, 'link_votes');
 do_active_stories();
 do_banner_promotions();
-do_last_subs('published', 5, 'link_votes');
 do_best_comments();
 do_vertical_tags('published');
 echo '</div>';

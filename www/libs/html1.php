@@ -826,7 +826,7 @@ function do_last_subs($status = 'published', $count = 10, $order = 'date') {
 	$ids = $db->get_col("select link from sub_statuses, subs, links where date > date_sub(now(), interval 48 hour) and status = '$status' and sub_statuses.id = origen and subs.id = sub_statuses.id and owner > 0 and not nsfw and link_id = link order by $order desc limit $count");
 	if ($ids) {
 		$links = array();
-		$title = _('en subs de usuarios');
+		$title = _('en temas de usuarios');
 		foreach($ids as $id) {
 			$link = Link::from_db($id);
 			if (! $link) continue;
