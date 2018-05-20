@@ -437,7 +437,7 @@ class Comment extends LCPBase {
 	static function print_form($link, $rows=5) {
 		global $current_user, $globals;
 
-		if ($link->link_status == 'draft') return;
+		if ($link->status == 'draft') return;
 
 		$comment = new Comment(); // Foo comment
 		$comment->randkey = rand(1000000,100000000);
@@ -489,7 +489,7 @@ class Comment extends LCPBase {
 
 		// Check if is a POST of a comment
 
-		if( ! ($link->link_status != 'draft' && $link->date > $globals['now']-$globals['time_enabled_comments']*1.01 &&
+		if( ! ($link->status != 'draft' && $link->date > $globals['now']-$globals['time_enabled_comments']*1.01 &&
 				$link->comments < $globals['max_comments'] &&
 				intval($_POST['link_id']) == $link->id && $current_user->authenticated &&
 				intval($_POST['user_id']) == $current_user->user_id &&
