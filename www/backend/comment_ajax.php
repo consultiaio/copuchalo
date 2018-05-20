@@ -18,7 +18,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 $link_id = $parent = $comment = $link = false;
 
-if (isset($_REQUEST['reply_to']) && ($reply_to = intval($_REQUEST['reply_to'])) > 0 ) {
+if (isset($_REQUEST['reply_to']) && ($reply_to = intval($_REQUEST['reply_to'])) > 0) {
 	$res = $db->get_row("select comment_link_id, comment_order from comments where comment_id=$reply_to");
 	if (! $res )  die;
 
@@ -28,10 +28,14 @@ if (isset($_REQUEST['reply_to']) && ($reply_to = intval($_REQUEST['reply_to'])) 
 	if ($parent) {
 		$comment->content = "#$parent ";
 	}
-} elseif (!empty($_REQUEST['id']) && ($id = intval($_REQUEST['id'])) > 0 ) {
+} elseif (!empty($_REQUEST['id']) && ($id = intval($_REQUEST['id'])) > 0) {
 	$comment = Comment::from_db($id);
 	if (! $comment) die;
 	$link_id = $comment->link;
+}
+
+if(!$link_id && isset($_REQUEST['link'])) {
+	$link_id = intval($_REQUEST['link']);
 }
 
 $link = Link::from_db($link_id);
