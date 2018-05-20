@@ -123,14 +123,30 @@
 
 <fieldset>
 {% if link.thumb_url OR link.media_size > 0 %}
-	<label>{% trans _('eliminar imagen') %}:</label><input type="checkbox" name="thumb_delete" value="1"/><br/>
+	<label>{% trans _('eliminar imagen') %}:</label><input type="checkbox" name="thumb_delete" value="1"/><br/><br/>
 {% else %}
 	{% if link.url %}
-		<label>{% trans _('obtener imagen (puede tardar varios segundos)') %}:</label><input type="checkbox" name="thumb_get" value="1" {{thumb_state}} /><br/>
+		<label>{% trans _('obtener imagen (puede tardar varios segundos)') %}:&nbsp;</label><input type="checkbox" name="thumb_get" value="1" {{thumb_state}} /><br/>
 		<label>o</label><br>
 	{% endif %}
-	<label>{% trans _('especificar url de la imagen') %}:</label><input type="url" name="thumb_url" value="{{thumb_url}}" style="width:50%;margin:0" /><br/>
+	<label>{% trans _('especificar url de la imagen') %}:&nbsp;</label><input type="url" name="thumb_url" value="{{thumb_url}}" style="width:50%;margin:0" /><br/>
+	<label>o</label><br>
 {% endif %}
+
+<input type="hidden" name="MAX_FILE_SIZE" value="{{ globals.media_max_size }}" />
+<label>{% trans _('subir imagen') %}
+<input type="file" autocomplete="off" name="image"
+	id="fileInput"
+	class="uploadFile"
+/></label>
+<div class="droparea_info" style></div>
+
+<script>
+addPostCode( function () {
+	$('#thisform').droparea({maxsize: {{ globals.media_max_size }} });
+	$("#fileInput").nicefileinput({ title: 'agregar imagen' });
+});
+</script>
 </fieldset>
 
 {% if not link.is_new && (current_user.admin > 0 OR current_user.user_level == "blogger") %}
@@ -141,33 +157,12 @@
 
 <br/>
 
-
 {% if link.is_new %}
 	<input class="button" type="button" onclick="window.history.go(-1)" value="&#171; {% trans _('retroceder') %}" />&nbsp;&nbsp;
 	<input class="button" type="submit" value="{% trans _('continuar') %} &#187;" />
 {% else %}
 	<input class="button" type="submit" value="{% trans _('guardar') %} &#187;" />
 {% endif %}
-
-
-{% if link.site_properties.allow_images %}
-	<input type="hidden" name="MAX_FILE_SIZE" value="{{ globals.media_max_size }}" />
-		&nbsp;&nbsp;&nbsp;&nbsp;<label>{% trans _('subir imagen') %} <input type="file" autocomplete="off" name="image"
-		id="fileInput"
-		class="uploadFile"
-		/></label>
-		<div class="droparea_info" style></div>
-
-	<script>
-	addPostCode( function () {
-		$('#thisform').droparea({maxsize: {{ globals.media_max_size }} });
-		$("#fileInput").nicefileinput({ title: 'agregar imagen' });
-	});
-	</script>
-
-{% endif %}
-
-
 
 </fieldset>
 </form>
