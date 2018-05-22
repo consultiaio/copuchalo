@@ -157,7 +157,6 @@ echo '</div>'; // newswrap
 /*** SIDEBAR ****/
 echo '<div id="sidebar" class="col-sm-3">';
 do_banner_right();
-do_banner_right();
 //do_best_stories();
 if (! $short_content) {
 	do_best_posts();
