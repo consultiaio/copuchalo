@@ -381,7 +381,7 @@ CREATE TABLE `links` (
   `link_id` int(20) NOT NULL AUTO_INCREMENT,
   `link_author` int(20) NOT NULL DEFAULT '0',
   `link_blog` int(20) DEFAULT '0',
-  `link_status` enum('discard','queued','published','abuse','duplicated','autodiscard','metapublished') CHARACTER SET utf8 NOT NULL DEFAULT 'discard',
+  `link_status` enum('discard','queued','published','abuse','duplicated','autodiscard','metapublished','draft') CHARACTER SET utf8 NOT NULL DEFAULT 'discard',
   `link_randkey` int(20) NOT NULL DEFAULT '0',
   `link_votes` int(20) NOT NULL DEFAULT '0',
   `link_negatives` int(11) NOT NULL DEFAULT '0',
