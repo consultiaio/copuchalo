@@ -1,0 +1,56 @@
+<div id="singlewrap">
+    <div class="genericform" style="margin:0">
+        <form method="post" name="pinned" action="{{globals.base_url}}admin/pinned.php">
+            <input type="hidden" name="key" value="{{key}}"/>
+
+            <table class="decorated" style="font-size: 10pt">
+                <tr>
+                    <th width="25%">
+                            {% trans _('Id. historia (0 para ninguna)') %}
+                    </th>
+
+		    <th width="25%">
+                            {% trans _('fecha expiración') %}
+                    </th>
+
+                    <th width="25%">
+                            {% trans _('fecha caducidad') %}
+                    </th>
+
+                    <th width="25%">
+                            {% trans _('Actualizar') %}
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input-pinned" type="number" id="id_story" name="id_story" min="0" value="{{ id_story }}"/>
+                    </td>
+                    <td>
+                        {{ expire }}
+                    </td>
+                    <td>
+                        <select name="expire" id="expire">
+                            {% set two_hours = globals.now + 3600*2 %}
+                            {% set six_hours = globals.now + 3600*6 %}
+                            {% set one_day = globals.now + 86400 %}
+                            {% set two_day = globals.now + 86400*2 %}
+                            {% set four_day = globals.now + 86400*4 %}
+                            {% set one_week = globals.now + 86400*7 %}
+                            <option value="0">{% trans _('Sin caducidad') %}</option>
+                            <option value="{{ two_hours }}">{% trans _('Ahora + dos horas') %}</option>
+                            <option value="{{ six_hours }}">{% trans _('Ahora + seis horas') %}</option>
+                            <option value="{{ one_day }}">{% trans _('Ahora + un día') %}</option>
+                            <option value="{{ two_day }}">{% trans _('Ahora + dos días') %}</option>
+                            <option value="{{ four_day }}">{% trans _('Ahora + cuatro días') %}</option>
+                            <option value="{{ one_week }}">{% trans _('Ahora + una semana') %}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="editing" value="1" />
+                        <input class="input-pinned" type="submit" name="submit" value="{% trans _('Guardar') %}"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

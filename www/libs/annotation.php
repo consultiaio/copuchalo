@@ -10,6 +10,7 @@ class Annotation {
 	var $key = false;
 	var $time;
 	var $text = '';
+	var $expire;
 
 	function Annotation($key = false) {
 		$this->key = $key;
@@ -50,13 +51,12 @@ class Annotation {
 		return $db->query("DELETE FROM annotations WHERE annotation_key = '$key'");
 	}
 
-	function store($expire = false) {
+	function store($expire = 0) {
 		global $db;
 
 		if (empty($this->key)) return false;
 
-		if (! $expire) $expire = 'null';
-		else $expire = "FROM_UNIXTIME($expire)";
+		$expire = "FROM_UNIXTIME($expire)";
 		$key = $db->escape($this->key);
 		$text = $db->escape($this->text);
 		return $db->query("REPLACE INTO annotations (annotation_key, annotation_text, annotation_expire) VALUES ('$key', '$text', $expire)");
@@ -68,7 +68,7 @@ class Annotation {
 		if ($key) $this->key = $key;
 
 		$key =	$db->escape($this->key);
-		if(($result = $db->get_row("SELECT UNIX_TIMESTAMP(annotation_time) as time, UNIX_TIMESTAMP(annotation_expire) as expire, annotation_text as text FROM annotations WHERE annotation_key = '$key' and (annotation_expire is null or annotation_expire > now())"))) {
+		if(($result = $db->get_row("SELECT UNIX_TIMESTAMP(annotation_time) as time, UNIX_TIMESTAMP(annotation_expire) as expire, annotation_text as text FROM annotations WHERE annotation_key = '$key' and (annotation_expire is null or annotation_expire = 0 or annotation_expire > now())"))) {
 			foreach(get_object_vars($result) as $var => $value) $this->$var = $value;
 			return true;
 		}

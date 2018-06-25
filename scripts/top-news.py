@@ -18,6 +18,12 @@ def do_site(site_id, site):
 	""" Process a given site """
 	links = {}
 	cursor = DBM.cursor()
+
+	""" Remove expired pinned new """
+	site_key_pinned = 'top-link-pinned-'+site_id
+	query = "DELETE FROM annotations WHERE annotation_expire > 0 and NOW() > annotation_expire and annotation_key = %s"
+	cursor.execute(query, (site_key_pinned,))
+
 	query = """
 		select link_id, link_uri,
 			unix_timestamp(now()) - unix_timestamp(link_date)

@@ -28,7 +28,8 @@ function do_admin_tabs($tab_selected = false)
 		"proxy" => 'bans.php?tab=proxy',
 		"noaccess" => 'bans.php?tab=noaccess',
 		"admin_logs" => 'logs.php',
-		"reports" => 'reports.php'
+		"reports" => 'reports.php',
+		"pinned story" => 'pinned.php'
 	];
 
 	Haanga::Load("admin/tabs.html", compact('tabs', 'tab_selected', 'users'));

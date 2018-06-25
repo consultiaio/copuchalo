@@ -182,6 +182,10 @@ input, textarea {
 	color: #333;
 }
 
+.input-pinned {
+	margin: 0;
+}
+
 .pointer {
 	cursor: pointer;
 }

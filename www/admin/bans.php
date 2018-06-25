@@ -87,7 +87,7 @@ function do_ban_list($selected_tab, $search, $orderby, $key) {
 	$rows = $db->get_var("SELECT count(*) FROM bans " . $where);
 	$sql = "SELECT * FROM bans " . $where . " ORDER BY $orderby $order LIMIT $offset,$page_size";
 	$bans = $db->get_results($sql);
-	
+
 	Haanga::Load('admin/bans/list.html', compact('bans', 'selected_tab', 'key', 'search'));
 
 	do_pages($rows, $page_size, false);
@@ -109,3 +109,4 @@ function do_ban_edit($selected_tab, $search, $key) {
 function do_ban_news($selected_tab, $search, $key) {
 	Haanga::Load('admin/bans/news.html', compact('selected_tab', 'search', 'key'));
 }
+
