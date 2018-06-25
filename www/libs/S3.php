@@ -82,7 +82,7 @@ class S3
 	 * @acess public
 	 * @static
 	 */
-	public static $endpoint = 'objects-us-west-1.dream.io'; //s3.amazonaws.com';
+	public static $endpoint = null;
 	
 	/**
 	 * Proxy information
@@ -182,8 +182,14 @@ class S3
 	* @param string $endpoint Amazon URI
 	* @return void
 	*/
-	public function __construct($accessKey = null, $secretKey = null, $useSSL = false, $endpoint = 'objects-us-west-1.dream.io')  //s3.amazonaws.com')
+	public function __construct($accessKey = null, $secretKey = null, $useSSL = false, $endpoint = null)
 	{
+		global $globals;
+
+		if(null === $endpoint) {
+			$endpoint = $globals['Amazon_S3_server'];
+		}
+
 		if ($accessKey !== null && $secretKey !== null)
 			self::setAuth($accessKey, $secretKey);
 		self::$useSSL = $useSSL;
@@ -735,7 +741,7 @@ class S3
 		if ($saveTo !== false)
 		{
 
-syslog(LOG_INFO, "objectREST: ".print_r($rest, true));
+			//syslog(LOG_INFO, "objectREST: ".print_r($rest, true));
 			if (is_resource($saveTo)) {
 				syslog(LOG_INFO, "d1");
 				$rest->fp =& $saveTo;
@@ -2007,8 +2013,14 @@ final class S3Request
 	* @param string $endpoint AWS endpoint URI
 	* @return mixed
 	*/
-	function __construct($verb, $bucket = '', $uri = '', $endpoint = 'objects-us-west-1.dream.io') //s3.amazonaws.com')
+	function __construct($verb, $bucket = '', $uri = '', $endpoint = null)
 	{
+		global $globals;
+
+		if(null === $endpoint) {
+			$endpoint = $globals['Amazon_S3_server'];
+		}
+
 		$this->endpoint = $endpoint;
 		$this->verb = $verb;
 		$this->bucket = $bucket;
