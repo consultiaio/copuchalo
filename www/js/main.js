@@ -64,7 +64,7 @@ function vote_post(user, id, value) {
 }
 
 function respond_comment_vote(id, value) {
-	$('#vc-p-'+id).removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up').attr('onclick','').unbind('click');
+	$('span[id="vc-p-'+id+'"]').removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up').attr('onclick','').unbind('click');
 }
 
 
@@ -73,8 +73,8 @@ function update_comment_vote(id, value, data) {
 		mDialog.notify("{% trans _('Error:') %} "+data.error, 5);
 		return false;
 	} else {
-		$('#vc-'+id).html(data.votes+"");
-		$('#vk-'+id).html(data.karma+"");
+		$('span[id="vc-'+id+'"]').html(data.votes+"");
+		$('span[id="vk-'+id+'"]').html(data.karma+"");
 	}
 }
 
