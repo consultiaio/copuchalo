@@ -96,6 +96,11 @@ font-size: small;
 max-width: 24%;
 }
 
+.comment-body img.thumb.ok {
+        max-width: 225px;
+}
+
+
 #footthingy {
 	//margin: 2em auto;
 	font-size: 0.625em;

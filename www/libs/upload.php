@@ -32,8 +32,8 @@ class Upload {
 			//		$size = $globals['thumb_size'];
 			//	}
 			default:
-				$all = array('media_thumb' => array($globals['media_front_wide'], $globals['media_front_height'], true),
-					     'media_thumb_2x' => array($globals['media_front_wide'] * 2, $globals['media_front_height'] * 2, true));
+				$all = array('media_thumb' => array($globals['media_front_wide'], $globals['media_front_height'], true));
+					   //'media_thumb_2x' => array($globals['media_front_wide_highlight'], $globals['media_front_height_highlight'], true));
 					   //'media_front' => array($globals['media_front_wide'], $globals['media_front_height'], true));
 		}
 

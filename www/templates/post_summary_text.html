@@ -2,12 +2,13 @@
 	{{ self.content }}
 
 	{% if self.media_size > 0 %}
-		&nbsp;
-		<a class="fancybox" title="{% trans _('subida por') %} {{ self.username }} ({{ self.media_size }} bytes)" href="{{ self.media_url }}"><img
+		<br><br>
+		<a class="fancybox" title="{% trans _('subido por') %} {{ self.username }} ({{ self.media_size }} bytes)" href="{{ self.media_url }}"><img
 
 		{% if globals.cache_redirector %}
 			class="thumb ok"
-			src="//{{ globals.server_name }}/{{ self.media_thumb_dir }}/media_thumb-post-{{ self.id }}.{{ self.media_extension }}?{{ self.media_date }}" 
+			{# src="//{{ globals.server_name }}/{{ self.media_thumb_dir }}/media_thumb-post-{{ self.id }}.{{ self.media_extension }}?{{ self.media_date }}" #}
+			src="{{ self.media_url }}"
 		{% else %}
 			class="thumb"
 			src="img/common/picture01.png" width="30" height="24"
