@@ -241,7 +241,7 @@ a {
 }
 
 a:hover,
-a:visited:hover,
+/*a:visited:hover,*/
 a:focus {
 	//text-decoration: underline;
 	color: #005be2;
