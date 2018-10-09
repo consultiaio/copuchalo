@@ -182,7 +182,7 @@ $globals['limit_same_site_24_hours'] = 4;
 
 $globals['karma_propaganda'] = 12; // min user karma to avoid extra spam/propaganda checks in the submits
 
-
+$globals['smart_mode_days'] = 360;
 $globals['karma_base']=6;
 $globals['karma_base_max']=9; // If not penalised, older users can get up to this value as base for the calculus
 $globals['min_karma']=1; //min user karma

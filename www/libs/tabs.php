@@ -96,6 +96,10 @@ final class Tabs
 		$items = array();
 		$items[] = array('id' => 0, 'url' => $globals['meta_skip'], 'title' => _('todas'));
 
+		if($current_user->user_id > 0 && SitesMgr::my_id() == 1) {
+			$items[] = array('id' => 2, 'url' => '?meta=_smart', 'title' => _('smart'));
+		}
+
 		if (isset($current_user->has_subs) && ! empty($globals['meta_subs'])) {
 			$items[] = array('id' => 7, 'url' => $globals['meta_subs'], 'title' => _('suscripciones'));
 		}

@@ -36,10 +36,10 @@ if ($page > 1) {
 	$pagetitle .= " ($page)";
 }
 
-
 $order_by = "ORDER BY sub_date DESC ";
-
 $from = '';
+$rows = -1;
+
 switch ($globals['meta']) {
 	case '_subs':
 		if ($current_user->user_id && $current_user->has_subs) {
@@ -68,6 +68,17 @@ switch ($globals['meta']) {
 		$rows = -1;
 		$tab_option = 1; // Friends
 		break;
+	case '_smart':
+		$tab_option = 2;
+		$rows = -1;
+		$sql = "SELECT".Link::SQL."INNER JOIN (SELECT count(link_id) AS total, blog_id from votes, links, blogs
+							WHERE vote_user_id=@user_id and vote_type='links' and link_id = vote_link_id and blog_id=link_blog
+							GROUP BY blog_id
+							ORDER BY total desc
+							) AS ids ON (ids.blog_id = links.link_blog)
+						WHERE link_date > date_sub(now(), interval ".$globals['smart_mode_days']." day)
+						ORDER BY link_date DESC LIMIT $offset,$page_size";
+		break;
 	default:
 		$tab_option = 0; // All
 		$rows = Link::count('published');
@@ -93,6 +104,12 @@ if (! $globals['mobile'] && $page == 1 && empty($globals['meta']) && ($top = Lin
 }
 
 
+$globals['site_id'] = SitesMgr::my_id();
+
+// Search for sponsored link
+if (!empty($globals['sponsored_link_uri'])) $sponsored_link = Link::from_db($globals['sponsored_link_uri'], 'uri');
+
+
 // *** Sorting in a subselect only works with mysql:
 //     http://stackoverflow.com/questions/26372511/mysql-order-by-inside-subquery
 //     https://mariadb.atlassian.net/browse/MDEV-3926
@@ -101,11 +118,13 @@ if (! $globals['mobile'] && $page == 1 && empty($globals['meta']) && ($top = Lin
 //$order_by = "ORDER BY date DESC ";
 //$order_by = "ORDER BY sub_date DESC ";
 
-if (!$rows) $rows = $db->get_var("SELECT SQL_CACHE count(*) FROM sub_statuses $from WHERE $where");
-
 // We use a "INNER JOIN" in order to avoid "order by" with filesorting. It was very bad for high pages
 //$sql = "SELECT".Link::SQL."INNER JOIN (SELECT link FROM sub_statuses $from WHERE $where $order_by LIMIT $offset,$page_size) as ids ON (ids.link = link_id)";
-$sql = "SELECT".Link::SQL."INNER JOIN (SELECT link FROM sub_statuses $from WHERE $where) as ids ON (ids.link = link_id) $order_by LIMIT $offset,$page_size";
+if(!$sql)
+	$sql = "SELECT".Link::SQL."INNER JOIN (SELECT link FROM sub_statuses $from WHERE $where) as ids ON (ids.link = link_id) $order_by LIMIT $offset,$page_size";
+
+if (!$rows)
+	$rows = $db->get_var("SELECT SQL_CACHE count(*) FROM sub_statuses $from WHERE $where");
 
 //syslog(LOG_INFO, "site_id: ".$db->get_var("SELECT @site_id"));
 //syslog(LOG_INFO, "user_id: ".$db->get_var("SELECT @user_id"));
@@ -116,10 +135,6 @@ $sql = "SELECT".Link::SQL."INNER JOIN (SELECT link FROM sub_statuses $from WHERE
 //syslog(LOG_INFO, "sql1: SELECT SQL_CACHE count(*) FROM sub_statuses $from WHERE $where");
 //syslog(LOG_INFO, $sql);
 
-$globals['site_id'] = SitesMgr::my_id();
-
-// Search for sponsored link
-if (!empty($globals['sponsored_link_uri'])) $sponsored_link = Link::from_db($globals['sponsored_link_uri'], 'uri');
 
 $links = $db->object_iterator($sql, "Link");
 if ($links) {
