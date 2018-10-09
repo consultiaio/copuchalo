@@ -866,8 +866,6 @@ vertical-align: middle;
 
 .sidebox {
 	margin-bottom:25px;
-	//padding: 4px;
-	//border: 1px solid #dadada;
 	border: 1px solid #ddd;
 	padding: 4px;
 	border-radius: 4px;
@@ -1144,7 +1142,42 @@ padding-bottom:6px;
 	text-decoration: none;
 }
 
+.related-box {
+	font-family: "Graphik Web", sans-serif;
+	font-size: 0.9em;
+	margin-bottom:25px;
+	padding: 4px;
+	border-radius: 4px;
+}
 
+.related-box .grid {
+	display: flex;
+	justify-content: space-between;
+}
+
+.related-box .title {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border-top: 1px solid #aaa;
+	letter-spacing: 2px;
+}
+
+.related-box .cell {
+	width: 29%;
+}
+
+.related-box .cell img {
+	display: block;
+	margin: auto;
+	border: 1px solid rgba(0,0,0,0.05);
+	width: 100%;
+	height: auto;
+}
+
+.related-box .cell .text {
+	margin-top: 4px;
+	padding: 10px;
+}
 
 
 #footwrap {

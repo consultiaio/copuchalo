@@ -288,6 +288,27 @@
     </div> {# news-info-footer #}
 </div> {# news-info #}
 
+	{# ####################### RELATED ############################## #}
+	{% if related %}
+		<div class="related-box">
+		<div class="title">Relacionadas</div>
+		<div class="grid">
+			{% for l in related %}
+			<div class="cell">
+				{% exec l.has_thumb as thumb  %}
+				<a href="{{ l.permalink }}"{% if l.status != 'published' %} rel="nofollow"{% endif %}>
+				{% if thumb %}
+					<img src="{{thumb | noscheme}}" alt=''/>
+				{% endif %}
+				<div class="text">
+					{{ l.title }}
+				</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+		</div>
+	{% endif %}
 
 	{# ####################### BEST COMMENT!!! ########################## #}
 

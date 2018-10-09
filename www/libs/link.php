@@ -720,6 +720,7 @@ class Link extends LCPBase {
 
 		if(!$this->read) return;
 
+		$related = null;
 		if($type == 'frontpage') {
 			$type = 'full';
 			$content_full = false;
@@ -733,6 +734,9 @@ class Link extends LCPBase {
 				$pagetoserve = "link_summary.html";
 			}
 		} else {
+			if($type == 'story') {
+				$related = $this->get_related(3);
+			}
 			$content_full = true;
 			if($globals['mobile']) {
 				$pagetoserve = "link_summary_card.html";
@@ -793,7 +797,7 @@ class Link extends LCPBase {
 			$this->friend_votes = $db->get_results("SELECT vote_user_id as user_id, vote_value, user_avatar, user_login, UNIX_TIMESTAMP(vote_date) as ts,inet_ntoa(vote_ip_int) as ip FROM votes, users, friends WHERE vote_type='links' and vote_link_id=$this->id AND vote_user_id=friend_to AND vote_user_id > 0 AND user_id = vote_user_id AND friend_type = 'manual' AND friend_from = $current_user->user_id AND friend_value > 0 AND vote_value > 0 AND vote_user_id != $this->author ORDER BY vote_date DESC");
 
 		$sponsored = $this->is_sponsored();
-		$vars = compact('type', 'sponsored');
+		$vars = compact('type', 'sponsored', 'related');
 		$vars['self'] = $this;
 		$vars['content_full'] = $content_full;
 		//echo "<!-- NOTICIA: ".print_r($this,true)."-->\n";
