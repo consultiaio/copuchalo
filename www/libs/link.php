@@ -1659,7 +1659,7 @@ class Link extends LCPBase {
 		else $this->old = false;
 
 
-		$response = do_search(false, 0, $max+1, false);
+		$response = do_search(false, 0, $max, false);
 		if ($response && isset($response['ids'])) {
 			foreach($response['ids'] as $id) {
 				if ($id == $this->id) continue;
