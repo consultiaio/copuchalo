@@ -251,10 +251,11 @@ a:active {
 	color: #444;
 }
 
-
+/*
 a:visited {
 	color: #444;
 }
+*/
 
 #cboxTitle a:visited {
 	color: #005be2;
