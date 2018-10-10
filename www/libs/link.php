@@ -1658,8 +1658,8 @@ class Link extends LCPBase {
 		if ($globals['now'] - $this->date > 86400*5) $this->old = true;
 		else $this->old = false;
 
-
-		$response = do_search(false, 0, $max, false);
+		$i = 0;
+		$response = do_search(false, 0, $max+1, false);
 		if ($response && isset($response['ids'])) {
 			foreach($response['ids'] as $id) {
 				if ($id == $this->id) continue;
@@ -1667,6 +1667,8 @@ class Link extends LCPBase {
 				if (! $l) continue;
 				if (empty($l->permalink)) $l->permalink = $l->get_permalink();
 				$related[] = $l;
+				$i++;
+				if($i >= $max) break;
 			}
 		}
 		return $related;
