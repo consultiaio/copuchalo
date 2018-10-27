@@ -103,13 +103,21 @@ switch ($globals['meta']) {
 		$globals['tag_status'] = 'discard';
 		$rows = Link::count('discard') + Link::count('autodiscard') + Link::count('abuse');
 		break;
+	case '_old':
+		$globals['tag_status'] = 'queued';
+		//$order_by = "ORDER BY date DESC";
+		$order_by = "ORDER BY sub_date DESC";
+		$rows = Link::count('queued');
+		$where = "sub_statuses.id = ". SitesMgr::my_id() ." AND status='queued' AND sub_statuses.date <= date_sub(now(), interval ".$globals['old_new_news_days']." day) ";
+		$tab = 4;
+		break;
 	case '_all':
 	default:
 		$globals['tag_status'] = 'queued';
 		//$order_by = "ORDER BY date DESC";
 		$order_by = "ORDER BY sub_date DESC";
-		$rows = Link::count('queued');
-		$where = "sub_statuses.id = ". SitesMgr::my_id() ." AND status='queued' ";
+		$rows = -1;
+		$where = "sub_statuses.id = ". SitesMgr::my_id() ." AND status='queued' AND sub_statuses.date > date_sub(now(), interval ".$globals['old_new_news_days']." day) ";
 		$tab = 1;
 		break;
 }
@@ -145,10 +153,11 @@ if ($links) {
 			$link->print_summary('queue');
 		}
 	}
+	do_pages($rows, $page_size);
+} else {
+	Haanga::Load('shakeit.html');
 }
 
-
-do_pages($rows, $page_size);
 echo '</div></div>';
 
 

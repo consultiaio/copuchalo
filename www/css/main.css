@@ -5693,3 +5693,39 @@ ul.subheader-list a.note.priv {
 }
 
 
+
+.sk-box {
+	font-family: "Open Sans", "sans-serif";
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 15px 35px 15px 35px ;
+	border: 1px solid #ddd;
+	text-align: center;
+	margin-bottom: 25px;
+	border-radius: 4px;
+	background: #fafafa;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sk-box a:link,
+.sk-box a:visited {
+	text-decoration: underline;
+}
+
+.sk-box > .sk-frame > .sk-row {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.sk-box > .sk-frame > .sk-row > .sk-text {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+.sk-box > .sk-frame > .sk-row > .sk-button {
+}
+
+

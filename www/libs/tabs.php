@@ -196,7 +196,8 @@ final class Tabs
 		global $globals, $current_user;
 
 		$items = array();
-		$items[] = array('id' => 1, 'url' => 'queue' . $globals['meta_skip'], 'title' => _('nuevas'));
+		$items[] = array('id' => 1, 'url' => 'queue' . $globals['meta_skip'], 'title' => _('recientes'));
+		$items[] = array('id' => 4, 'url' => 'queue?meta=_old' . $globals['meta_skip'], 'title' => _('viejas'));
 
 		if ($current_user->has_subs) {
 			$items[] = array('id' => 7, 'url' => 'queue' . $globals['meta_subs'], 'title' => _('suscripciones'));

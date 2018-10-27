@@ -562,3 +562,8 @@ a.dropdown.temas-dp:before {
 	margin-left: 0;
 }
 
+.sk-box {
+	padding: 5px 20px 5px 20px ;
+        width: 100%;
+}
+
