@@ -30,10 +30,10 @@ class TwitterOAuth extends OAuthBase {
 		$server = 'api.twitter.com';
 		$this->request_token_url = "https://$server/oauth/request_token";
 		$this->access_token_url = "https://$server/oauth/access_token";
-		$this->authorize_url =  "https://$server/oauth/authenticate";
+		$this->authorize_url = "https://$server/oauth/authenticate";
 		$this->credentials_url = "https://$server/1.1/account/verify_credentials.json";
 
-		if (! $globals['oauth']['twitter']['consumer_key'] || ! $globals['oauth']['twitter']['consumer_secret']) {
+		if (!$globals['oauth']['twitter']['consumer_key'] || !$globals['oauth']['twitter']['consumer_secret']) {
 			$oauth = null;
 		}
 		$this->service = 'twitter';
@@ -52,13 +52,13 @@ class TwitterOAuth extends OAuthBase {
 				setcookie('oauth_token_secret', $request_token_info['oauth_token_secret'], 0);
 				$this->token_secret = $request_token_info['oauth_token_secret'];
 				$this->token = $request_token_info['oauth_token'];
-				header("Location: ".$this->authorize_url."?oauth_token=$this->token");
-				exit;
+				die(header("Location: ".$this->authorize_url."?oauth_token=$this->token"));
 			} else {
 				do_error(_('error obteniendo tokens'), false, false);	
 			}
 		} catch (Exception $e) {
-				do_error(_('error de conexión a') . " $this->service (authRequest)", false, false);	
+			syslog(LOG_INFO, "ERROR TWITTER OAUTH: ".print_r($e, true));
+			do_error(_('error de conexión a') . " $this->service (authRequest)", false, false);
 		}
 	}
 
