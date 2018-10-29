@@ -45,7 +45,7 @@ class Media {
 		S3::setAuth($globals['Amazon_access_key'], $globals['Amazon_secret_key']);
 		$object = @S3::getObject($globals['Amazon_S3_media_bucket'], $uri, $output);
 		$lastHTTPCode =  $object->code;
-syslog(LOG_INFO, "Objeto ($object->code): ".print_r($object, true));
+		//syslog(LOG_INFO, "Objeto ($object->code): ".print_r($object, true));
 		if ($object) {
 			return $object;
 		}

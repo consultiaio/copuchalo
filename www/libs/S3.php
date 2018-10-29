@@ -743,14 +743,14 @@ class S3
 
 			//syslog(LOG_INFO, "objectREST: ".print_r($rest, true));
 			if (is_resource($saveTo)) {
-				syslog(LOG_INFO, "d1");
+				//syslog(LOG_INFO, "d1");
 				$rest->fp =& $saveTo;
 			} else {
 				if (($rest->fp = @fopen($saveTo, 'wb')) !== false) {
-					syslog(LOG_INFO, "d2");
+					//syslog(LOG_INFO, "d2");
 					$rest->file = realpath($saveTo);
 				} else {
-					syslog(LOG_INFO, "d3");
+					//syslog(LOG_INFO, "d3");
 					$rest->response->error = array('code' => 0, 'message' => 'Unable to open save file for writing: '.$saveTo);
 				}
 			}
