@@ -143,19 +143,23 @@ echo '<div class="row">';
 $sql = "SELECT".$SQL_CALL."INNER JOIN (SELECT link FROM sub_statuses $from WHERE $where) as ids on (ids.link = link_id) $order_by LIMIT $offset,$page_size";
 
 $links = $db->object_iterator($sql, "Link");
-if ($links) {
-	foreach($links as $link) {
-		if ($link->status == 'draft' && $link->author != $current_user->user_id) continue;
-		$link->max_len = 600;
-		if ($offset < 1000) {
-			$link->print_summary('queue', 16);
-		} else {
-			$link->print_summary('queue');
-		}
+$n = 0;
+foreach($links as $link) {
+	if ($link->status == 'draft' && $link->author != $current_user->user_id) continue;
+	$link->max_len = 600;
+	if ($offset < 1000) {
+		$link->print_summary('queue', 16);
+	} else {
+		$link->print_summary('queue');
 	}
+	$n++;
+}
+
+if($n > 0) {
 	do_pages($rows, $page_size);
 } else {
-	Haanga::Load('shakeit.html');
+	if($tab == 1)
+		Haanga::Load('shakeit.html');
 }
 
 echo '</div></div>';

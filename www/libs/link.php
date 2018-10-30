@@ -248,11 +248,14 @@ class Link extends LCPBase {
 	static function top() {
 		global $globals;
 
+		$expire = 0;
+
 		// Pinned story has priority
 		$top = new Annotation('top-link-pinned-'.$globals['site_shortname']);
-		if (!$top->read()) return false;
-		$id = $top->text;
-		$expire = $top->expire;
+		if ($top->read()) {
+			$id = $top->text;
+			$expire = $top->expire;
+		}
 
 		// If perennial or expired story, try the automatic top new generated
 		if($expire != 0 && $globals['now'] > $expire) {

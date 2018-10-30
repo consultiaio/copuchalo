@@ -197,7 +197,7 @@ final class Tabs
 
 		$items = array();
 		$items[] = array('id' => 1, 'url' => 'queue' . $globals['meta_skip'], 'title' => _('recientes'));
-		$items[] = array('id' => 4, 'url' => 'queue?meta=_old' . $globals['meta_skip'], 'title' => _('viejas'));
+		$items[] = array('id' => 4, 'url' => 'queue?meta=_old' . $globals['meta_skip'], 'title' => _('antiguas'));
 
 		if ($current_user->has_subs) {
 			$items[] = array('id' => 7, 'url' => 'queue' . $globals['meta_subs'], 'title' => _('suscripciones'));
