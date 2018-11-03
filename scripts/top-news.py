@@ -20,7 +20,7 @@ def do_site(site_id, site):
 	cursor = DBM.cursor()
 
 	""" Remove expired pinned new """
-	site_key_pinned = 'top-link-pinned-'+site_id
+	site_key_pinned = 'top-link-pinned-'+str(site_id)
 	query = "DELETE FROM annotations WHERE annotation_expire > 0 and NOW() > annotation_expire and annotation_key = %s"
 	cursor.execute(query, (site_key_pinned,))
 
