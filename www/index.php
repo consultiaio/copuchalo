@@ -76,7 +76,7 @@ switch ($globals['meta']) {
 							GROUP BY blog_id
 							ORDER BY total desc
 							) AS ids ON (ids.blog_id = links.link_blog)
-						WHERE link_date > date_sub(now(), interval ".$globals['smart_mode_days']." day)
+						WHERE link_date > date_sub(now(), interval ".$globals['smart_mode_days']." day) and link_status <> 'draft'
 						ORDER BY link_date DESC LIMIT $offset,$page_size";
 		break;
 	default:
