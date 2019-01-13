@@ -738,7 +738,7 @@ class Link extends LCPBase {
 			}
 		} else {
 			if($type == 'story') {
-				$related = $this->get_related(3);
+				$related = $this->get_related(3, true);
 			}
 			$content_full = true;
 			if($globals['mobile']) {
@@ -1524,7 +1524,7 @@ class Link extends LCPBase {
 		return false;
 	}
 
-	function get_related($max = 10) {
+	function get_related($max = 10, $published_only = false) {
 		global $globals, $db;
 
 
@@ -1662,12 +1662,13 @@ class Link extends LCPBase {
 		else $this->old = false;
 
 		$i = 0;
-		$response = do_search(false, 0, $max+1, false);
+		$response = do_search(false, 0, $max+5, false);  // add 5 news to the max to avoid broken links or not published links
 		if ($response && isset($response['ids'])) {
 			foreach($response['ids'] as $id) {
 				if ($id == $this->id) continue;
 				$l = Link::from_db($id);
 				if (! $l) continue;
+				if ($published_only && $l->status != 'published') continue;
 				if (empty($l->permalink)) $l->permalink = $l->get_permalink();
 				$related[] = $l;
 				$i++;
