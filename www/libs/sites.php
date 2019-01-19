@@ -431,8 +431,9 @@ class SitesMgr {
 			$json = json_encode($dict);
 			$a->text = $json;
 			return $a->store();
+		} else {
+			return false;
 		}
-		return $a->delete();
 	}
 
 	static public function get_extended_properties($id = false) {

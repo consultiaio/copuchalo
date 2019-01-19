@@ -159,10 +159,14 @@ function save_sub($id, &$errors) {
 			$db->query("update subs set color1 = '$color1', color2 = '$color2' where id = $id");
 		}
 		if ($r && $id > 0) {
-			SitesMgr::store_extended_properties($id, $_POST);
-			$db->commit();
-			store_image($id);
-			return $id;
+			if(!SitesMgr::store_extended_properties($id, $_POST)) {
+				array_push($errors, _('error guardando las propiedades extendidas'));
+				$db->rollback();
+			} else {
+				$db->commit();
+				store_image($id);
+				return $id;
+			}
 		} else {
 			array_push($errors, _('error actualizando la base de datos'));
 			$db->rollback();
