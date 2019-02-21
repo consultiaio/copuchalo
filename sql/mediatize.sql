@@ -722,6 +722,7 @@ CREATE TABLE `subs` (
   `color2` char(7) DEFAULT NULL,
   `private` tinyint(1) DEFAULT '0',
   `page_mode` enum('best-comments','threads','interview','answered','standard') DEFAULT NULL,
+  `extended` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `owner` (`owner`)
