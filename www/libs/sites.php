@@ -11,7 +11,6 @@ class SitesMgr {
 	static private $parent = false;
 	static private $info = false;
 
-	const PREFERENCES_KEY = 'sub_preferences_';
 	const SQL_BASIC = "SELECT subs.*, media.id as media_id, media.size as media_size, media.dim1 as media_dim1, media.dim2 as media_dim2,
 			media.extension as media_extension, UNIX_TIMESTAMP(media.date) as media_date
 			FROM subs
@@ -399,6 +398,8 @@ class SitesMgr {
 	}
 
 	static public function store_extended_properties($id = false, &$prefs) {
+		global $db;
+
 		if ($id == false) {
 			$id = self::my_id();
 		}
@@ -424,20 +425,18 @@ class SitesMgr {
 			}
 		}
 
-		$key = self::PREFERENCES_KEY.$id;
-		$a = new Annotation($key);
-
 		if (!empty($dict)) {
 			$json = json_encode($dict);
-			$a->text = $json;
-			return $a->store();
+			return $db->query("update subs set extended = '$json' where id = '$id'");
 		} else {
 			return false;
 		}
 	}
 
 	static public function get_extended_properties($id = false) {
+		global $db;
 		static $properties = array(), $last_id = false;
+
 		if ($id == false) {
 			$id = self::my_id();
 		}
@@ -447,10 +446,9 @@ class SitesMgr {
 		$last_id = $id;
 		$properties = self::$extended_properties;
 
-		$key = self::PREFERENCES_KEY.$id;
-		$a = new Annotation($key);
-		if ($a->read() && !empty($a->text)) {
-			$res = json_decode($a->text, true); // We use associative array
+		$extended = $db->get_var("select extended from subs where id = $id");
+		if (!empty($extended)) {
+			$res = json_decode($extended, true); // We use associative array
 			if ($res) {
 				foreach ($res as $k => $v) {
 					$properties[$k] = $v;
