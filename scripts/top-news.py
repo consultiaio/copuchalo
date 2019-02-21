@@ -21,7 +21,7 @@ def do_site(site_id, site):
 
 	""" Remove expired pinned new """
 	site_key_pinned = 'top-link-pinned-'+str(site_id)
-	query = "DELETE FROM annotations WHERE annotation_expire > 0 and NOW() > annotation_expire and annotation_key = %s"
+	query = "DELETE FROM annotations WHERE annotation_expire is not null and annotation_expire > 0 and NOW() > annotation_expire and annotation_key = %s"
 	cursor.execute(query, (site_key_pinned,))
 
 	query = """
