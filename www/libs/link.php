@@ -398,7 +398,6 @@ class Link extends LCPBase {
 			}
 		}
 
-		/*
 		// Check if the author doesn't want to share
 		if (preg_match('/<!-- *noshare *-->/', $this->html)) {
 			$this->ban = array();
@@ -406,7 +405,6 @@ class Link extends LCPBase {
 			syslog(LOG_NOTICE, "noshare ($current_user->user_login): $url");
 			return false;
 		}
-		*/
 
 		// Now we analyse the html to find links to banned domains
 		// It avoids the trick of using google or technorati
