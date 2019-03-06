@@ -51,6 +51,13 @@ if ($id > 0) {
 			$url = $globals['scheme'].'//'.get_server_name().$c->get_relative_individual_permalink();
 			do_redirection($url);
 			exit(0);
+		case 'promos':
+			$url = $_GET['url'];
+			if(!empty($url) && is_numeric($id) && $db->get_var("select id from promos where id = $id")) {
+				$db->get_var("update promos set clicks = clicks + 1 where id = $id");
+				do_redirection($url, 303);
+			}
+			exit(0);
 		default:
 			$l = Link::from_db($id, null, false);
 			if (! $l) exit(0);
