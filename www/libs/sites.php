@@ -427,7 +427,8 @@ class SitesMgr {
 
 		if (!empty($dict)) {
 			$json = json_encode($dict);
-			return $db->query("update subs set extended = '$json' where id = '$id'");
+			$text = $db->escape($json);
+			return $db->query("update subs set extended = '$text' where id = '$id'");
 		} else {
 			return false;
 		}
