@@ -386,7 +386,7 @@ foreach ($res as $dbuser) {
         // Limit karma to users that do not have other activity
 		if ($karma6 > 0 && ($karma0+$karma1+$karma2+$karma3+$karma4+$karma5) < 0 ) $karma6 = 0;
 		if ($karma6 != 0) {
-			$output .= _('Votos a notas contabilizados').": $post_votes_count users: $distinct_user_votes_count karma: $post_votes_sum, karma6: ";
+			$output .= _('Votos a postits contabilizados').": $post_votes_count users: $distinct_user_votes_count karma: $post_votes_sum, karma6: ";
 			$output .= sprintf("%4.2f\n", $karma6);
 		}
 
@@ -396,7 +396,7 @@ foreach ($res as $dbuser) {
 			$karma7 = max(-$post_votes/2, -$post_votes * $negative_abused_post_votes_count / 20);
 		}
 		if ($karma7 != 0) {
-			$output .= _('Exceso de votos negativos injustos a notas').": $negative_abused_post_votes_count, karma7: ";
+			$output .= _('Exceso de votos negativos injustos a postits').": $negative_abused_post_votes_count, karma7: ";
 			$output .= sprintf("%4.2f\n", $karma7);
 		}
 
