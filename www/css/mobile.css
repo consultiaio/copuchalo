@@ -85,7 +85,7 @@ font-size: small;
 
 .news-content,
 .news-content-full {
-	font-size: 0.95em;
+	font-size: 1em;
 }
 
 .comment-body {
@@ -129,12 +129,24 @@ overflow: hidden;
 }
 */
 
+.news-body h2 {
+	font-size: 25px;
+}
+
+.news-details {
+	font-size: 14px;
+}
+
 .news-details, .news-submitted {
 white-space: normal;
 }
 
 .news-details form {
 float: right;
+}
+
+.news-submitted {
+	font-size: 0.8em;
 }
 
 .news-shakeit {

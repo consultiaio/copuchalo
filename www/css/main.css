@@ -3531,6 +3531,8 @@ font-size: 14px;
 }
 
 .news-submitted {
+	display: flex;
+	align-items: center;
 	font-family: 'Roboto', sans-serif;
 	font-size: 0.7em;
 	white-space: nowrap;
@@ -3547,7 +3549,6 @@ font-size: 14px;
 }
 
 .news-submitted img {
-	float: left;
 	width: 25px;
 	height: 25px;
 	margin-right: 8px;
