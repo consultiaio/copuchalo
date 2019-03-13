@@ -129,6 +129,10 @@ overflow: hidden;
 }
 */
 
+.title-header {
+	font-size: 1em;
+}
+
 .news-body h2 {
 	font-size: 25px;
 }
