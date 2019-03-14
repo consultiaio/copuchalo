@@ -36,10 +36,12 @@
 	<div class="news-info-footer">
 		{% if ! globals.bot %}
 		<div class="news-submitted">
+			<div>
 			<span class="media">{{ blog_title }}</span>&nbsp;|&nbsp;<span class="showmytitle" title="{{ blog_url }}">{{ blog_url }}</span>
 			<br />
 			{% trans _('publicado: ') %}
 			<time datetime="{{ date }}" class="tsrender" title="{% trans _('publicado') %}: {{ date }} UTC">________</time>
+			</div>
 		</div>
 		{% endif %}
 	</div> {# news-info-footer #}
