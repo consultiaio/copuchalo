@@ -56,11 +56,13 @@ class Annotation {
 
 		if (empty($this->key)) return false;
 
-		$expire = "FROM_UNIXTIME($expire)";
 		$key = $db->escape($this->key);
 		$text = $db->escape($this->text);
-		if($expire == 0)
+		if($expire)
+			$expire = "FROM_UNIXTIME($expire)";
+		else
 			$expire = "NULL";
+
 		return $db->query("REPLACE INTO annotations (annotation_key, annotation_text, annotation_expire) VALUES ('$key', '$text', $expire)");
 	}
 
