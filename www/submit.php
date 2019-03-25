@@ -15,7 +15,7 @@ $globals['ads'] = false;
 
 force_authentication();
 
-if (! SitesMgr::can_send()) die;
+if (! SitesMgr::can_send()) die("Este tema no permite envíos");
 
 $site = SitesMgr::get_info();
 $site_properties = SitesMgr::get_extended_properties();
