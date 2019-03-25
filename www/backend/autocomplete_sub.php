@@ -20,7 +20,7 @@ if (!$q) {
 
 $q = $db->escape($q);
 
-$subs = $db->get_results("select id, name from subs where name like '$q%' order by name asc limit 10");
+$subs = $db->get_results("select id, name from subs where name like '$q%' and enabled = 1 and sub = 1 and meta = 0 and private = 0 order by name asc limit 10");
 
 $json = [];
 if ($subs) {

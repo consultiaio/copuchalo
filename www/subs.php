@@ -58,13 +58,13 @@ switch ($option) {
 		break;
 	default:
 		$all = true;
-		$chars = $db->get_col("select distinct(left(ucase(name), 1)) from subs");
+		$chars = $db->get_col("select distinct(left(ucase(name), 1)) as c from subs where enabled = 1 and meta = 0 and private = 0 order by c asc");
 
 		// Check if we must show just those beginning with a letter
 		if (!empty($_GET['c']) && 
 			($char_selected = substr(clean_input_string($_GET['c']), 0, 1)) ) {
 			$extra = "subs.name like '$char_selected%' and";
-			$rows = $db->get_var("select count(*) from subs where $extra subs.sub = 1 and created_from = ".SitesMgr::my_id());
+			$rows = $db->get_var("select count(*) from subs where $extra enabled = 1 and meta = 0 and private = 0 and created_from = ".SitesMgr::my_id());
 		} else { 
 			$extra = '';
 			$rows = -1;
@@ -75,7 +75,7 @@ switch ($option) {
 		$page = get_current_page();
 		$offset=($page-1)*$page_size;
 
-		$sql = "select subs.*, user_id, user_login, user_avatar from subs, users where $extra subs.sub = 1 and created_from = ".SitesMgr::my_id()." and user_id = owner order by name asc limit $offset, $page_size";
+		$sql = "select subs.*, user_id, user_login, user_avatar from subs, users where $extra subs.enabled = 1 and subs.meta = 0 and subs.private = 0 and created_from = ".SitesMgr::my_id()." and user_id = owner order by name asc limit $offset, $page_size";
 		$subs = $db->get_results($sql);
 }
 

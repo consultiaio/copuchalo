@@ -389,7 +389,7 @@ class SitesMgr {
 
 		$key = 'subs_active' . $globals['v'] . "-$limit";
 		if(!($subs = memcache_mget($key))) {
-			$subs = $db->get_results("select subs.*, user_id, user_login, user_avatar, count(*) as c from subs LEFT JOIN users ON (user_id = owner), sub_statuses where date > date_sub(now(), interval 5 day) and subs.id = sub_statuses.id and sub_statuses.id = sub_statuses.origen and sub_statuses.status = 'published' and subs.sub = 1 $where group by subs.id order by c desc limit $limit");
+			$subs = $db->get_results("select subs.*, user_id, user_login, user_avatar, count(*) as c from subs LEFT JOIN users ON (user_id = owner), sub_statuses where date > date_sub(now(), interval 5 day) and subs.id = sub_statuses.id and sub_statuses.id = sub_statuses.origen and sub_statuses.status = 'published' and subs.sub = 1 and subs.enabled = 1 $where group by subs.id order by c desc limit $limit");
 			memcache_madd($key, json_encode($subs));
 		} else {
 			$subs = json_decode($subs);
